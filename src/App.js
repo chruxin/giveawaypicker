@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Button } from 'reactstrap';
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -52,11 +53,7 @@ class LoginButton extends React.Component {
 
   render() {
     return (
-      <input
-        type="submit"
-        value="Instagram Log In"
-        onClick={this.handleLogin}
-      />
+    <Button color="primary" onClick={this.handleLogin}>Instagram Log In</Button>
     );
   }
 }
