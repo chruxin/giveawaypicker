@@ -17,7 +17,6 @@ class SearchForm extends React.Component {
 
   handleSubmit(e) {
     alert('Submit in clicked: ' + this.state.value);
-    this.props.onInStockInput(e.target.checked);
   }
 
   render() {
@@ -41,6 +40,27 @@ class SearchForm extends React.Component {
   }
 }
 
+class LoginButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: ''};
+    this.handleLogin = this.handleLogin.bind(this);
+  }
+
+  handleLogin(e) {
+    alert('Log in button in clicked: ' + this.state.value);
+  }
+
+  render() {
+    return (
+      <input
+        type="submit"
+        value="Instagram Log In"
+        onClick={this.handleLogin}
+      />
+    );
+  }
+}
 
 
 class App extends Component {
@@ -61,11 +81,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <input
-          type="submit"
-          value="Submit"
-          onClick={this.handleSubmit}
-        />
+        <LoginButton />
         <SearchForm />
       </div>
     );
