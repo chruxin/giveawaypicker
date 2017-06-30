@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Button } from 'reactstrap';
+import NavBar from './components/NavBar';
 
-class SearchForm extends React.Component {
+class SearchForm extends Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -40,7 +41,7 @@ class SearchForm extends React.Component {
   }
 }
 
-class LoginButton extends React.Component {
+class LoginButton extends Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -54,59 +55,6 @@ class LoginButton extends React.Component {
   render() {
     return (
     <Button color="primary" onClick={this.handleLogin}>Instagram Log In</Button>
-    );
-  }
-}
-
-class NavBar extends React.Component {
-  render() {
-    return (
-      <div>
-        <div className="bg-faded">
-          <div className="container mt-0">
-            <nav className="navbar navbar-toggleable-sm navbar-light">
-              <a className="navbar-brand" href="http://www.mandychen.me">
-                &#60;MANDY CHEN /&#62;
-              </a>
-              <button
-                className="navbar-toggler navbar-toggler-right"
-                type="button" data-toggle="collapse"
-                data-target="#bd-main-nav"
-                aria-controls="bd-main-nav"
-                aria-expanded="false"
-              aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-              </button>
-
-
-              <div className="collapse navbar-collapse" id="bd-main-nav">
-                <ul className="nav navbar-nav mr-right">
-                  <li className="nav-item">
-                    <a className="nav-item nav-link" href="http://mandychen.me/projects">INSTAGRAM <span className="sr-only"></span></a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-item nav-link" href="http://mandychen.me/about">FACEBOOK</a>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-        </div>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <a className="nav-link" href="#">INSTAGRAM <span className="sr-only">(current)</span></a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">FACEBOOK</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul>
-        </div>
-      </div>
     );
   }
 }
