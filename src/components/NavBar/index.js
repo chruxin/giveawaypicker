@@ -25,10 +25,10 @@ class NavBar extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink href="/components/">INSTAGRAM</NavLink>
+                  <NavLink href="#">INSTAGRAM</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">FACEBOOK</NavLink>
+                  <NavLink href="#">FACEBOOK</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
