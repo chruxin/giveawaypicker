@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Button } from 'reactstrap';
 import NavBar from './components/NavBar';
+import LoginButton from './components/LoginButton';
 
 class SearchForm extends Component {
   constructor(props) {
@@ -40,25 +41,6 @@ class SearchForm extends Component {
     );
   }
 }
-
-class LoginButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-    this.handleLogin = this.handleLogin.bind(this);
-  }
-
-  handleLogin(e) {
-    alert('Log in button in clicked: ' + this.state.value);
-  }
-
-  render() {
-    return (
-    <Button color="primary" onClick={this.handleLogin}>Instagram Log In</Button>
-    );
-  }
-}
-
 
 class App extends Component {
   constructor(props) {
