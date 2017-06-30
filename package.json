@@ -2,6 +2,7 @@
   "name": "giveawaypicker",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "http://mandychen.me/giveawaypicker",
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "react": "^15.6.1",
