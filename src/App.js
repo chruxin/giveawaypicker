@@ -3,6 +3,7 @@ import './App.css';
 import { Button } from 'reactstrap';
 import NavBar from './components/NavBar';
 import LoginButton from './components/LoginButton';
+import Footer from './components/Footer';
 
 class SearchForm extends Component {
   constructor(props) {
@@ -59,6 +60,7 @@ class App extends Component {
         <NavBar />
         <LoginButton />
         <SearchForm />
+        <Footer />
       </div>
     );
   }
