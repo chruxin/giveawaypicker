@@ -25,10 +25,10 @@ class NavBar extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink href="#">INSTAGRAM</NavLink>
+                  <NavLink href="/">INSTAGRAM</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">FACEBOOK</NavLink>
+                  <NavLink href="/facebook">FACEBOOK</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
