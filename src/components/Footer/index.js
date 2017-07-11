@@ -15,7 +15,7 @@ class Footer extends Component {
             <br></br>
             Copyright © { currentYear }&nbsp;
             <a href="http://mandychen.me" className="site-link" target="_blank">Mandy Chen</a>.
-            &nbsp;<a href="#" className="site-link">Privacy</a>
+            &nbsp;<a href="/privacy" className="site-link">Privacy</a>
           </span>
         </div>
       </footer>

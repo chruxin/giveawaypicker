@@ -32,6 +32,7 @@ class App extends Component {
         <div>
           <Route exact path="/" component={Instagram}/>
           <Route path="/facebook" component={Facebook}/>
+          <Route path="/privacy" component={Privacy}/>
         </div>
       </Router>
     );
@@ -54,13 +55,22 @@ class Instagram extends Component {
 class Facebook extends Component {
   render () {
     return (
-      <div>
-        <h2>Facebook</h2>
+      <div className="text-center">
+        <h1>Facebook</h1>
       </div>
     );
   }
 }
 
+class Privacy extends Component {
+  render () {
+    return (
+      <div className="text-center">
+        <h1>Privacy Policies</h1>
+      </div>
+    );
+  }
+}
 
 
 class SearchForm extends Component {
