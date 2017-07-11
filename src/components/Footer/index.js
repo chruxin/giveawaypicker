@@ -11,10 +11,14 @@ class Footer extends Component {
         <div className="container pt-3">
           <span>
             Hosted on&nbsp;
-            <a href="https://github.com/42mandychen/giveawaypicker" className="site-link" target="_blank">GitHub</a>
+            <a href="https://github.com/42mandychen/giveawaypicker" className="site-link" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
             <br></br>
             Copyright © { currentYear }&nbsp;
-            <a href="http://mandychen.me" className="site-link" target="_blank">Mandy Chen</a>.
+            <a href="http://mandychen.me" className="site-link" target="_blank" rel="noopener noreferrer">
+              Mandy Chen
+            </a>.
             &nbsp;<a href="/privacy" className="site-link">Privacy</a>
           </span>
         </div>
