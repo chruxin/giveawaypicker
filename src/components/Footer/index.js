@@ -8,7 +8,7 @@ class Footer extends Component {
 
     return (
       <footer className="footer">
-        <div className="container pt-3">
+        <div className="container pt-3 text-center">
           <span>
             Hosted on&nbsp;
             <a href="https://github.com/42mandychen/giveawaypicker" className="site-link" target="_blank" rel="noopener noreferrer">
