@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router,  Link, Route } from 'react-router-dom'
 
 // import components
 import NavBar from './components/NavBar';
@@ -8,41 +8,91 @@ import LoginButton from './components/LoginButton';
 import Footer from './components/Footer';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
   render () {
     return (
       <Router>
         <div>
+          <NavBar />
+          <ul>
+
+            <li><Link to="/topics">Topics</Link></li>
+          </ul>
+
           <Route exact path="/" component={Instagram}/>
           <Route path="/facebook" component={Facebook}/>
           <Route path="/privacy" component={Privacy}/>
+          <Route path="/topics" component={Topics}/>
+          <Footer />
         </div>
       </Router>
     );
   }
 }
 
+class Topics extends Component {
+  /* Useless constructor
+  constructor (props) {
+    super(props);
+  }
+  */
+
+  render () {
+    return (
+      <div>
+        <h2>Topics</h2>
+        <ul>
+          <li>
+            <Link to={`${this.props.match.url}/rendering`}>
+              Rendering with React
+            </Link>
+          </li>
+          <li>
+            <Link to={`${this.props.match.url}/components`}>
+              Components
+            </Link>
+          </li>
+          <li>
+            <Link to={`${this.props.match.url}/props-v-state`}>
+              Props v. State
+            </Link>
+          </li>
+        </ul>
+
+        <Route path={`${this.props.match.url}/:topicId`} component={Topic}/>
+        <Route exact path={this.props.match.url} render={() => (
+          <h3>Please select a topic.</h3>
+        )}/>
+      </div>
+    );
+
+  }
+}
+
+class Topic extends Component {
+  /* Useless constructor
+  constructor (props) {
+    super(props);
+  }
+  */
+
+  render () {
+    return (
+      <div>
+        <h3>{this.props.match.params.topicId}</h3>
+      </div>
+    );
+  }
+}
+
+
 class Instagram extends Component {
   render () {
     return (
       <div className="text-center">
-        <NavBar />
+
         <LoginButton />
         <SearchForm />
-        <Footer />
+
       </div>
     );
   }
