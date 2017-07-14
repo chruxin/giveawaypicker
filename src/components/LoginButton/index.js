@@ -27,13 +27,13 @@ class LoginButton extends Component {
   // Docs: https://www.instagram.com/developer/authentication/
   handleLogin(e) {
     e.preventDefault();
-    var redirectURI = getCurrentRedirectURI();
-    var authenLink = 'https://api.instagram.com/oauth/authorize/?client_id='
+    const redirectURI = getCurrentRedirectURI();
+    const authenLink = 'https://api.instagram.com/oauth/authorize/?client_id='
                         + clientID + '&redirect_uri=' + redirectURI
                         + '&response_type=token';
     window.location.assign(authenLink);
     // TODO: check if user authorized or not
-    var accessToken = window.location.href.split('=')[1];
+    const accessToken = window.location.href.split('=')[1];
   }
 
   render() {

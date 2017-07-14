@@ -4,7 +4,7 @@ import './footer.css';
 class Footer extends Component {
 
   render() {
-    var currentYear = (new Date()).getFullYear();
+    const currentYear = (new Date()).getFullYear();
 
     return (
       <footer className="footer">
