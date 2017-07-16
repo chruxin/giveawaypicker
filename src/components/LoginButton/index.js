@@ -20,12 +20,13 @@ class LoginButton extends Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleInstagramLogin = this.handleInstagramLogin.bind(this);
+    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
   // Client-side authentification using Instagram API.
   // Docs: https://www.instagram.com/developer/authentication/
-  handleLogin(e) {
+  handleInstagramLogin(e) {
     e.preventDefault();
     const redirectURI = getCurrentRedirectURI();
     const authenLink = 'https://api.instagram.com/oauth/authorize/?client_id='
@@ -36,9 +37,23 @@ class LoginButton extends Component {
     const accessToken = window.location.href.split('=')[1];
   }
 
+  handleFacebookLogin(e) {
+    e.preventDefault();
+    alert('Facebook login.');
+  }
+
   render() {
+    let page = null;
+    if (this.props.page === 'instagram') {
+      page = <Button color="primary" onClick={this.handleInstagramLogin}>Instagram Log In</Button>;
+    } else if (this.props.page === 'facebook') {
+      page = <Button color="primary" onClick={this.handleFacebookLogin}>Facebook Log In</Button>;
+    }
+
     return (
-    <Button color="primary" onClick={this.handleLogin}>Instagram Log In</Button>
+      <div className="text-center">
+        { page }
+      </div>
     );
   }
 }
