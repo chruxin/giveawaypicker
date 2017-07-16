@@ -3,9 +3,11 @@ import { Button } from 'reactstrap';
 
 const clientID = 'b7252bba23044035ab81490a6ba5e11d';
 
-// Helper to get the current redirect uri
-// that authentification should go to
-// so that both local testing and website work
+/*
+    Helper to get the current redirect uri
+    that authentification should go to
+    so that both local testing and website work
+*/
 function getCurrentRedirectURI () {
   if (window.location.href.indexOf('localhost') !== -1) {
     // local testing on http://localhost:3000
@@ -24,8 +26,10 @@ class LoginButton extends Component {
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
-  // Client-side authentification using Instagram API.
-  // Docs: https://www.instagram.com/developer/authentication/
+  /*
+  Client-side authentification using Instagram API.
+  Docs: https://www.instagram.com/developer/authentication/
+  */
   handleInstagramLogin(e) {
     e.preventDefault();
     const redirectURI = getCurrentRedirectURI();
