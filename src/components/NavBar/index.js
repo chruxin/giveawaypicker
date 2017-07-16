@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
 
 class NavBar extends Component {
   constructor(props) {
@@ -16,19 +17,20 @@ class NavBar extends Component {
     });
   }
   render() {
+    const uri = window.location.pathname;
     return (
       <div className="bg-faded">
         <div className="container">
           <Navbar color="faded" light toggleable>
             <NavbarToggler right onClick={this.toggle} />
-            <NavbarBrand href="/">Giveaway Picker</NavbarBrand>
+            <NavbarBrand to="/" tag={RRNavLink}>Giveaway Picker</NavbarBrand>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink href="/">INSTAGRAM</NavLink>
+                  <NavLink to="/instagram" activeClassName="active" tag={RRNavLink}>INSTAGRAM</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/facebook">FACEBOOK</NavLink>
+                  <NavLink to="/facebook" activeClassName="active" tag={RRNavLink}>FACEBOOK</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
