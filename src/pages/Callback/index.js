@@ -24,7 +24,7 @@ class Callback extends Component {
       return (
         <Redirect to={{
           pathname: '/',
-          state: { error: error }
+          from: this.props.location
         }} />
       );
     }

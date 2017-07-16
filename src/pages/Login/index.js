@@ -7,20 +7,25 @@ import Footer from '../../components/Footer';
 
 class Login extends Component {
   render () {
-    let error;
+    let error = false;
     let message;
     console.log('this.props' + JSON.stringify(this.props));
-    if (this.props.location.state) {
-      error = this.props.location.state.error;
+    if (this.props.location.from) {
+      if (this.props.location.from.pathname === '/callback') {
+        error = true;
+      }
+    }
+    if (error) {
       message = (
         <div>
           <h1>Error encountered! </h1>
-          <p>{ error }</p>
+          <p>{ this.props.location.from.search }</p>
         </div>
       );
     } else {
-      message = <h1>Welcome! Please log in.</h1>
+      message = <h1>Welcome! Please log in.</h1>;
     }
+
 
     return (
       <div>
