@@ -26,7 +26,13 @@ class Instagram extends Component {
     let body;
 
     if (isTokenValid) {
-      body = <p>{ token }</p>;
+      body = (
+        <div>
+          <p>A random user that followed the following rules will be picked.</p>
+          <h2>Rules</h2>
+          <InstagramForm />
+        </div>
+      );
     } else {
       body = (
         <div>
@@ -41,9 +47,7 @@ class Instagram extends Component {
         <NavBar />
         <div className="container text-center body">
           <h1>Instagram Picker</h1>
-          <p>A random user that followed the following rules will be picked.</p>
-          <h2>Rules</h2>
-          <InstagramForm />
+          { body }
         </div>
         <Footer />
       </div>

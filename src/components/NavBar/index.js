@@ -17,7 +17,6 @@ class NavBar extends Component {
     });
   }
   render() {
-    const uri = window.location.pathname;
     return (
       <div className="bg-faded">
         <div className="container">

@@ -10,7 +10,6 @@ function storeAccessToken (accessToken) {
 
 class Callback extends Component {
   render () {
-    // TODO: more thorough checks
     const tokenFragment = window.location.hash;
     const errorFragment = window.location.search;
     if (tokenFragment) {
@@ -23,15 +22,16 @@ class Callback extends Component {
             //state: { token: accessToken }
           }} />
       );
-    } else {
+    } else if (errorFragment){
       // URL is: http://redirect-uri?error=access_denied&error_reason=user_denied&error_description=The+user+denied+your+request
-      const error = errorFragment.split('?')[1];
       return (
         <Redirect to={{
           pathname: '/',
           from: this.props.location
         }} />
       );
+    } else {
+      // TODO: more thorough checks
     }
   }
 }

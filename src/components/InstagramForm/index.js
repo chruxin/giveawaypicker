@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
 
 class InstagramForm extends Component {
@@ -33,11 +33,11 @@ class InstagramForm extends Component {
       });
 
       axios.get('https://api.instagram.com/v1/users/self/?access_token=' + token).then(function (response) {
-        console.log('request: ' + 'https://api.instagram.com/v1/users/self/?access_token=' + token);
+        console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
           console.log(JSON.stringify(response));
         })
         .catch(function (error) {
-          console.log('request: ' + 'https://api.instagram.com/v1/users/self/?access_token=' + token);
+          console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
           console.log(JSON.stringify(error));
         });
 
