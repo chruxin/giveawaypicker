@@ -6,10 +6,12 @@ import Footer from '../../components/Footer';
 
 class Instagram extends Component {
   render () {
-    let token;
-    if (this.props.location.state) {
-      token = this.props.location.state.token;
-    }
+    const token = localStorage.getItem('access_token');
+    console.log('token: ' + token);
+    // console.log(JSON.stringify(this.props));
+    // if (this.props.location.state) {
+    //   token = this.props.location.state.token;
+    // }
 
     return (
       <div>
