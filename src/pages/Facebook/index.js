@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+// import components
+import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
+
 class Facebook extends Component {
   render () {
     const loggedIn = false;
@@ -11,8 +15,12 @@ class Facebook extends Component {
     }
 
     return (
-      <div className="text-center">
-        { heading }
+      <div>
+        <NavBar />
+        <div className="text-center">
+          { heading }
+        </div>
+        <Footer />
       </div>
     );
   }

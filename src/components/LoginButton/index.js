@@ -3,16 +3,18 @@ import { Button } from 'reactstrap';
 
 const clientID = 'b7252bba23044035ab81490a6ba5e11d';
 
-// Helper to get the current redirect uri
-// that authentification should go to
-// so that both local testing and website work
-function getCurrentRedirectURI () {
-  if (window.location.href.indexOf('localhost') !== -1) {
-    // local testing on http://localhost:3000
-    return 'http://localhost:3000';
+/*
+    Helper to get the current redirect uri
+    that authentification should go to
+    so that both local testing and website work
+*/
+function getInstagramRedirectURL () {
+  if (window.location.hostname === 'localhost') {
+    // testing locally on http://localhost:3000
+    return 'http://localhost:3000/callback';
   } else {
     // on website http://mandychen.me/giveawaypicker
-    return 'http://mandychen.me/giveawaypicker';
+    return 'http://mandychen.me/giveawaypicker/callback';
   }
 }
 
@@ -24,17 +26,17 @@ class LoginButton extends Component {
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
 
-  // Client-side authentification using Instagram API.
-  // Docs: https://www.instagram.com/developer/authentication/
+  /*
+    Client-side authentification using Instagram API.
+    Docs: https://www.instagram.com/developer/authentication/
+  */
   handleInstagramLogin(e) {
     e.preventDefault();
-    const redirectURI = getCurrentRedirectURI();
+    const redirectURL = getInstagramRedirectURL();
     const authenLink = 'https://api.instagram.com/oauth/authorize/?client_id='
-                        + clientID + '&redirect_uri=' + redirectURI
+                        + clientID + '&redirect_uri=' + redirectURL
                         + '&response_type=token';
-    window.location.assign(authenLink);
-    // TODO: check if user authorized or not
-    const accessToken = window.location.href.split('=')[1];
+    window.location.assign(authenLink); //TODO: use react-router instead
   }
 
   handleFacebookLogin(e) {
