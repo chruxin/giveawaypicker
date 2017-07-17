@@ -10,6 +10,7 @@ function storeAccessToken (accessToken) {
 
 class Callback extends Component {
   render () {
+    // TODO: more thorough checks
     const tokenFragment = window.location.hash;
     const errorFragment = window.location.search;
     if (tokenFragment) {
