@@ -25,13 +25,25 @@ Then followed the instructions by adding
 import 'bootstrap/dist/css/bootstrap.css';
 ```
 
-in `src/index.js`, and any component (button as an example) that you would like to use with
+in [`src/index.js`](./src/index.js), and any component (button as an example) that you would like to use with
 
 ```javascript
 import { Button } from 'reactstrap';
 ```
 
-in `src/App.js`.
+in [`src/App.js`](./src/App.js).
+
+## Routing System
+
+The routing system is done by using [react-router](https://reacttraining.com/react-router/). The routes are specified in [`src/App.js`](./src/App.js).
+
+## Authentication
+
+The [Instagram API](https://www.instagram.com/developer/authentication/) uses [OAuth 2.0 protocol](http://tools.ietf.org/html/draft-ietf-oauth-v2-12).
+
+As GitHub only hosts static websites, this projects uses client-side/implicit authentication with the help of react-router for redirecting. 
+
+The access token is persistent by using [localStorage](https://www.w3schools.com/html/html5_webstorage.asp).
 
 ## Travis
 
