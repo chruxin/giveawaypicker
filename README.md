@@ -48,3 +48,31 @@ The access token is persistent by using [localStorage](https://www.w3schools.com
 ## Travis
 
 [Travis CI](https://travis-ci.org/) for build status. More tests to come.
+
+## Production Build
+
+The production files in this project can be found in [`./docs`](./docs). It is an optimized build for production created by running
+
+```bash
+$ yarn run build
+```
+
+To view production locally, install [pushstate-server](https://github.com/scottcorgan/pushstate-server) with 
+
+```bash
+$ yarn global add pushstate-server
+```
+
+or
+
+```bash
+$ npm install -g pushstate-server
+```
+
+And then run 
+
+```bash
+$ pushstate-server build
+```
+
+and view production build locally on http://localhost:9000 (http://0.0.0.0:9000).
