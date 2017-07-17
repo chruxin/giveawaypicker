@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
+import './instagram.css';
+
 // import components
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import LoginButton from '../../components/LoginButton';
+import InstagramForm from '../../components/InstagramForm';
 
 function verfiyToken (token) {
   // TODO: verifyToken in background
@@ -12,6 +15,7 @@ function verfiyToken (token) {
 
 class Instagram extends Component {
   render () {
+    // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
     let isTokenValid = false;
     if (token) {
@@ -35,9 +39,11 @@ class Instagram extends Component {
     return (
       <div>
         <NavBar />
-        <div className="text-center">
-          <h1>Instagram page</h1>
-          <p>{ body }</p>
+        <div className="container text-center body">
+          <h1>Instagram Picker</h1>
+          <p>A random user that followed the following rules will be picked.</p>
+          <h2>Rules</h2>
+          <InstagramForm />
         </div>
         <Footer />
       </div>

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://mandychen.me/giveawaypicker",
   "dependencies": {
+    "axios": "^0.16.2",
     "bootstrap": "4.0.0-alpha.6",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
