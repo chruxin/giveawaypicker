@@ -16,7 +16,30 @@ class InstagramForm extends Component {
   }
 
   handleSubmit(event) {
+    // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
+    const token = localStorage.getItem('access_token');
+
     const postURL = this.state.postURL;
+    const requestURL = 'https://api.instagram.com/oembed/?url=' + postURL;
+
+
+    axios.get(requestURL).then(function (response) {
+        console.log('request: ' + requestURL);
+        console.log(JSON.stringify(response));
+      })
+      .catch(function (error) {
+        console.log('request: ' + requestURL);
+        console.log(JSON.stringify(error));
+      });
+
+      axios.get('https://api.instagram.com/v1/users/self/?access_token=' + token).then(function (response) {
+        console.log('request: ' + 'https://api.instagram.com/v1/users/self/?access_token=' + token);
+          console.log(JSON.stringify(response));
+        })
+        .catch(function (error) {
+          console.log('request: ' + 'https://api.instagram.com/v1/users/self/?access_token=' + token);
+          console.log(JSON.stringify(error));
+        });
 
 
   }
