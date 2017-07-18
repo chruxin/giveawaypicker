@@ -9,16 +9,19 @@ import Facebook from './pages/Facebook';
 import Privacy from './pages/Privacy';
 import Callback from './pages/Callback';
 
+const baseUrl = process.env.PUBLIC_URL;
+
 class App extends Component {
   render () {
+    console.log('process.env: ' + JSON.stringify(process.env));
     return (
       <Router>
         <div>
-          <Route exact path="/" component={Login}/>
-          <Route path="/instagram" component={Instagram}/>
-          <Route path="/facebook" component={Facebook}/>
-          <Route path="/callback" component={Callback}/>
-          <Route path="/privacy" component={Privacy}/>
+          <Route exact path={baseUrl + "/"} component={Login}/>
+          <Route path={baseUrl + "/instagram"} component={Instagram}/>
+          <Route path={baseUrl + "/facebook"} component={Facebook}/>
+          <Route path={baseUrl + "/callback"} component={Callback}/>
+          <Route path={baseUrl + "/privacy"} component={Privacy}/>
         </div>
       </Router>
     );
