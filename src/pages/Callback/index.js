@@ -8,30 +8,33 @@ function storeAccessToken (accessToken) {
   }
 }
 
+const baseUrl = process.env.PUBLIC_URL;
+
 class Callback extends Component {
   render () {
+    // TODO: more thorough checks
     const tokenFragment = window.location.hash;
     const errorFragment = window.location.search;
+    const instagram = baseUrl + '/instagram';
     if (tokenFragment) {
       // URL is: http://redirect-uri#access_token=ACCESS-TOKEN
       const accessToken = tokenFragment.split('=')[1];
       storeAccessToken(accessToken);
       return (
           <Redirect to={{
-            pathname: '/instagram'//,
+            pathname: instagram//,
             //state: { token: accessToken }
           }} />
       );
-    } else if (errorFragment){
+    } else {
       // URL is: http://redirect-uri?error=access_denied&error_reason=user_denied&error_description=The+user+denied+your+request
+      const error = errorFragment.split('?')[1];
       return (
         <Redirect to={{
-          pathname: '/',
+          pathname: baseUrl,
           from: this.props.location
         }} />
       );
-    } else {
-      // TODO: more thorough checks
     }
   }
 }

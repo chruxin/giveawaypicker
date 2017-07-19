@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { NavLink as RRNavLink } from 'react-router-dom';
 
+const baseUrl = process.env.PUBLIC_URL;
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
@@ -22,14 +24,14 @@ class NavBar extends Component {
         <div className="container">
           <Navbar color="faded" light toggleable>
             <NavbarToggler right onClick={this.toggle} />
-            <NavbarBrand to="/" tag={RRNavLink}>Giveaway Picker</NavbarBrand>
+            <NavbarBrand to={baseUrl + "/"} tag={RRNavLink}>Giveaway Picker</NavbarBrand>
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink to="/instagram" activeClassName="active" tag={RRNavLink}>INSTAGRAM</NavLink>
+                  <NavLink to={baseUrl + "/instagram"} activeClassName="active" tag={RRNavLink}>INSTAGRAM</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/facebook" activeClassName="active" tag={RRNavLink}>FACEBOOK</NavLink>
+                  <NavLink to={baseUrl + "/facebook"} activeClassName="active" tag={RRNavLink}>FACEBOOK</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
