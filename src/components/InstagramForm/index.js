@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import axios from 'axios';
+import jsonp from 'jsonp';
 
 class InstagramForm extends Component {
   constructor(props) {
@@ -19,27 +19,35 @@ class InstagramForm extends Component {
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
 
-    const postURL = this.state.postURL;
-    const requestURL = 'https://api.instagram.com/oembed/?url=' + postURL;
+    // const postURL = this.state.postURL;
+    // const requestURL = 'https://api.instagram.com/oembed/?url=' + postURL + '&callback=?';
+    //
+    //
+    // axios.get(requestURL).then(function (response) {
+    //     console.log('request: ' + requestURL);
+    //     console.log(JSON.stringify(response));
+    //   })
+    //   .catch(function (error) {
+    //     console.log('request: ' + requestURL);
+    //     console.log(JSON.stringify(error));
+    //   });
 
+    jsonp('https://api.instagram.com/v1/users/self/?access_token=' + token, null, function (err, data) {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log(data);
+      }
+    });
 
-    axios.get(requestURL).then(function (response) {
-        console.log('request: ' + requestURL);
-        console.log(JSON.stringify(response));
-      })
-      .catch(function (error) {
-        console.log('request: ' + requestURL);
-        console.log(JSON.stringify(error));
-      });
-
-      axios.get('https://api.instagram.com/v1/users/self/?access_token=' + token).then(function (response) {
-        console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
-          console.log(JSON.stringify(response));
-        })
-        .catch(function (error) {
-          console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
-          console.log(JSON.stringify(error));
-        });
+      // axios.get('https://api.instagram.com/v1/users/self/?access_token=' + token + '&callback=?').then(function (response) {
+      //   console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
+      //     console.log(JSON.stringify(response));
+      //   })
+      //   .catch(function (error) {
+      //     console.log('request: https://api.instagram.com/v1/users/self/?access_token=' + token);
+      //     console.log(JSON.stringify(error));
+      //   });
 
 
   }

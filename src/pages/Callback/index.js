@@ -29,7 +29,6 @@ class Callback extends Component {
       );
     } else {
       // URL is: http://redirect-uri?error=access_denied&error_reason=user_denied&error_description=The+user+denied+your+request
-      const error = errorFragment.split('?')[1];
       return (
         <Redirect to={{
           pathname: baseUrl,

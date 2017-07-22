@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "4.0.0-alpha.6",
+    "jsonp": "^0.2.1",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
