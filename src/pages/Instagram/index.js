@@ -15,6 +15,8 @@ function verfiyToken (token) {
 
 class Instagram extends Component {
   render () {
+    document.title = "Instagram";
+    
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
     let isTokenValid = false;

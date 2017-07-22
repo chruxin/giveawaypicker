@@ -7,6 +7,8 @@ import Footer from '../../components/Footer';
 
 class Login extends Component {
   render () {
+    document.title = "Log In";
+    
     let error = false;
     let message;
     console.log('this.props' + JSON.stringify(this.props));

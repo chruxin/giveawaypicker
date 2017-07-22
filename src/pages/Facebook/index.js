@@ -6,6 +6,8 @@ import Footer from '../../components/Footer';
 
 class Facebook extends Component {
   render () {
+    document.title = "Facebook";
+    
     const loggedIn = false;
     let heading = null;
     if (loggedIn) {

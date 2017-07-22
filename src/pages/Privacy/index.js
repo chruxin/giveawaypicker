@@ -6,6 +6,8 @@ import Footer from '../../components/Footer';
 
 class Privacy extends Component {
   render () {
+    document.title = "Privacy Policies";
+    
     return (
       <div>
         <NavBar />

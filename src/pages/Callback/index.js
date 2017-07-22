@@ -12,6 +12,7 @@ const baseUrl = process.env.PUBLIC_URL;
 
 class Callback extends Component {
   render () {
+    document.title = "Redirect";
     // TODO: more thorough checks
     const tokenFragment = window.location.hash;
     const errorFragment = window.location.search;
