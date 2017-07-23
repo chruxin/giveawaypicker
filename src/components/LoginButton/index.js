@@ -14,7 +14,7 @@ function getInstagramRedirectURL () {
     return 'http://localhost:3000/callback';
   } else {
     // on website http://mandychen.me/giveawaypicker
-    return 'http://mandychen.me/giveawaypicker/callback';
+    return 'http://www.mandychen.me/giveawaypicker/callback';
   }
 }
 
