@@ -16,7 +16,7 @@ function verfiyToken (token) {
 class Instagram extends Component {
   render () {
     document.title = "Instagram";
-    
+
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
     let isTokenValid = false;
@@ -30,8 +30,7 @@ class Instagram extends Component {
     if (isTokenValid) {
       body = (
         <div>
-          <p>A random user that followed the following rules will be picked.</p>
-          <h2>Rules</h2>
+          <p>Random user(s) that followed the following rules will be picked.</p>
           <InstagramForm />
         </div>
       );
