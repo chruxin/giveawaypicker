@@ -26,7 +26,7 @@ class InstagramResult extends Component {
       message = <h2>Error: { error }</h2>;
     } else if (result) {
       const winners = this.selectRandomWinners (users, numberOfWinners);
-      const links = winners.map((winner) =>
+      const winnerLinks = winners.map((winner) =>
       <a href={'https://www.instagram.com/' + winner.username} key={winner.username}>
         @{winner.username}
       </a>
@@ -34,7 +34,7 @@ class InstagramResult extends Component {
       message = (
         <div>
           <h2>Winner(s):</h2>
-          <p>{ links }</p>
+          <p>{ winnerLinks }</p>
         </div>
       );
     }
@@ -78,26 +78,25 @@ class InstagramForm extends Component {
     const postURL = this.state.postURL;
     const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-    let that = this;
-    jsonp(requestURLForMediaId, null, function (err, data) {
+    jsonp(requestURLForMediaId, null, (err, data) => {
       if (err) {
         console.log('error!');
         console.error(err.message);
-        that.setState({error: err.message});
+        this.setState({error: err.message});
       } else {
         console.log('success!');
         console.log(data);
         const mediaId = data.media_id;
         const requestURLForLikes = 'https://api.instagram.com/v1/media/'
         + mediaId + '/likes?access_token=' + token;
-        jsonp(requestURLForLikes, null, function (err, data) {
+        jsonp(requestURLForLikes, null, (err, data) => {
           if (err) {
             console.log('error!');
             console.error(err.message);
           } else {
             console.log('success!');
             console.log(data);
-            that.setState({
+            this.setState({
               users: data.data,
               result: true
             });
