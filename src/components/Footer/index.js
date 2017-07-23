@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './footer.css';
 
+const baseUrl = process.env.PUBLIC_URL;
+
 class Footer extends Component {
 
   render() {
@@ -19,7 +21,7 @@ class Footer extends Component {
             <a href="http://mandychen.me" className="site-link" target="_blank" rel="noopener noreferrer">
               Mandy Chen
             </a>.
-            &nbsp;<a href="/privacy" className="site-link">Privacy</a>
+            &nbsp;<a href={baseUrl + "/privacy"} className="site-link">Privacy</a>
           </span>
         </div>
       </footer>
