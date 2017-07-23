@@ -41,38 +41,10 @@ The routing system is done by using [react-router](https://reacttraining.com/rea
 
 The [Instagram API](https://www.instagram.com/developer/authentication/) uses [OAuth 2.0 protocol](http://tools.ietf.org/html/draft-ietf-oauth-v2-12).
 
-As GitHub only hosts static websites, this projects uses client-side/implicit authentication with the help of react-router for redirecting. 
+As GitHub only hosts static websites, this projects uses client-side/implicit authentication with the help of react-router for redirecting.
 
-The access token is persistent by using [localStorage](https://www.w3schools.com/html/html5_webstorage.asp).
+The access token is stored persistently by using [localStorage](https://www.w3schools.com/html/html5_webstorage.asp).
 
 ## Travis
 
 [Travis CI](https://travis-ci.org/) for build status. More tests to come.
-
-## Production Build
-
-The production files in this project can be found in [`./docs`](./docs). It is an optimized build for production created by running
-
-```bash
-$ yarn run build
-```
-
-To view production locally, install [pushstate-server](https://github.com/scottcorgan/pushstate-server) with 
-
-```bash
-$ yarn global add pushstate-server
-```
-
-or
-
-```bash
-$ npm install -g pushstate-server
-```
-
-And then run 
-
-```bash
-$ pushstate-server build
-```
-
-and view production build locally on http://localhost:9000 (http://0.0.0.0:9000).
