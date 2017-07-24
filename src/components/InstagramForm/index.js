@@ -24,7 +24,12 @@ class InstagramResult extends Component {
     let message;
     if (error !== '') {
       message = <h2>Error: { error }</h2>;
-    } else if (result) {
+    } else if (result === true) {
+      message = (
+        <div>
+          <h2>Generating result...</h2>
+        </div>
+      );
       const winners = this.selectRandomWinners (users, numberOfWinners);
       const winnerLinks = winners.map((winner) =>
       <a href={'https://www.instagram.com/' + winner.username} key={winner.username}>
@@ -54,7 +59,8 @@ class InstagramForm extends Component {
      numberOfWinners: '',
      users: [],
      error: '',
-     result: false
+     result: false,
+     message: ''
    };
 
    this.handleChange = this.handleChange.bind(this);
@@ -72,13 +78,15 @@ class InstagramForm extends Component {
   }
 
   handleSubmit(event) {
+    this.setState({message: 'Generating result...'});
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
 
     const postURL = this.state.postURL;
     const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-    jsonp(requestURLForMediaId, null, (err, data) => {
+    jsonp(requestURLForMediaId, {timeout: 600}, (err, data) => {
+      this.setState({message: ''});
       if (err) {
         console.log('error!');
         console.error(err.message);
@@ -129,6 +137,7 @@ class InstagramForm extends Component {
           </FormGroup>
           <Button onClick={this.handleSubmit}>Submit</Button>
         </Form>
+        <h2>{ this.state.message }</h2>
         <InstagramResult
           users={this.state.users}
           numberOfWinners={this.state.numberOfWinners}
