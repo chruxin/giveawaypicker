@@ -45,6 +45,10 @@ As GitHub only hosts static websites, this projects uses client-side/implicit au
 
 The access token is stored persistently by using [localStorage](https://www.w3schools.com/html/html5_webstorage.asp).
 
+## Instagram API Requests
+
+Requests are made by using [`jsonp`](https://github.com/webmodules/jsonp). XMLHttpRequests have cross-domain restrictions (a request from one domain to another will not succeed) as Instagram API does not have `access-control-allow-origin` in the headers.
+
 ## Travis
 
 [Travis CI](https://travis-ci.org/) for build status. More tests to come.
