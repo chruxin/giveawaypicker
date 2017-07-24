@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
-import jsonp from 'jsonp';
+import fetchJsonp from 'fetch-jsonp';
+require('es6-promise').polyfill();
 
 class InstagramResult extends Component {
   constructor (props) {
@@ -85,32 +86,26 @@ class InstagramForm extends Component {
     const postURL = this.state.postURL;
     const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-    jsonp(requestURLForMediaId, {timeout: 600}, (err, data) => {
+    fetchJsonp(requestURLForMediaId).then((response) => {
       this.setState({message: ''});
-      if (err) {
-        console.log('error!');
-        console.error(err.message);
-        this.setState({error: err.message});
-      } else {
-        console.log('success!');
-        console.log(data);
-        const mediaId = data.media_id;
-        const requestURLForLikes = 'https://api.instagram.com/v1/media/'
-        + mediaId + '/likes?access_token=' + token;
-        jsonp(requestURLForLikes, null, (err, data) => {
-          if (err) {
-            console.log('error!');
-            console.error(err.message);
-          } else {
-            console.log('success!');
-            console.log(data);
-            this.setState({
-              users: data.data,
-              result: true
-            });
-          }
+      return response.json();
+    }).then((json) => {
+      const mediaId = json.media_id;
+      const requestURLForLikes = 'https://api.instagram.com/v1/media/'
+      + mediaId + '/likes?access_token=' + token;
+      return fetchJsonp(requestURLForLikes).then((response) => {
+        return response.json();
+      }).then((json) => {
+        this.setState({
+          users: json.data,
+          result: true
         });
-      }
+      });
+    }).catch((err) => {
+      this.setState({
+        message: '',
+        error: err.message
+      });
     });
 
   }
@@ -122,6 +117,7 @@ class InstagramForm extends Component {
       <div>
         <h2>Number of winners</h2>
         <Input type="number"
+          required="true"
           name="numberOfWinners"
           id="numberOfWinners"
           onChange={this.handleChange}/>

@@ -47,7 +47,7 @@ The access token is stored persistently by using [localStorage](https://www.w3sc
 
 ## Instagram API Requests
 
-Requests are made by using [`jsonp`](https://github.com/webmodules/jsonp). XMLHttpRequests have cross-domain restrictions (a request from one domain to another will not succeed) as Instagram API does not have `access-control-allow-origin` in the headers.
+Requests are made by using [`fetch-jsonp`](https://github.com/camsong/fetch-jsonp). XMLHttpRequests have cross-domain restrictions (a request from one domain to another will not succeed) as Instagram API does not have `access-control-allow-origin` in the headers.
 
 ## Travis
 
