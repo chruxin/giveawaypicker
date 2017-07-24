@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import fetchJsonp from 'fetch-jsonp';
-require('es6-promise').polyfill();
 
 class InstagramResult extends Component {
   constructor (props) {
@@ -31,6 +30,7 @@ class InstagramResult extends Component {
           <h2>Generating result...</h2>
         </div>
       );
+      // TODO: make sure users is not undefined
       const winners = this.selectRandomWinners (users, numberOfWinners);
       const winnerLinks = winners.map((winner) =>
       <a href={'https://www.instagram.com/' + winner.username} key={winner.username}>
@@ -78,36 +78,32 @@ class InstagramForm extends Component {
     // this.setState({postURL: event.target.value});
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     this.setState({message: 'Generating result...'});
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
-
     const postURL = this.state.postURL;
     const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-    fetchJsonp(requestURLForMediaId).then((response) => {
+    try {
+      let response = await fetchJsonp(requestURLForMediaId)
       this.setState({message: ''});
-      return response.json();
-    }).then((json) => {
+      let json = await response.json();
       const mediaId = json.media_id;
       const requestURLForLikes = 'https://api.instagram.com/v1/media/'
-      + mediaId + '/likes?access_token=' + token;
-      return fetchJsonp(requestURLForLikes).then((response) => {
-        return response.json();
-      }).then((json) => {
-        this.setState({
-          users: json.data,
-          result: true
-        });
-      });
-    }).catch((err) => {
+        + mediaId + '/likes?access_token=' + token;
+      let response2 = await fetchJsonp(requestURLForLikes)
+      let json2 = await response2.json();
       this.setState({
-        message: '',
-        error: err.message
+        users: json2.data,
+        result: true
       });
-    });
-
+    } catch (err) {
+        this.setState({
+          message: '',
+          error: err.message
+        });
+    }
   }
 
   render() {
