@@ -69,6 +69,7 @@ class InstagramForm extends Component {
 
    this.handleChange = this.handleChange.bind(this);
    this.handleRuleChange = this.handleRuleChange.bind(this);
+   this.handleRemove = this.handleRemove.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
    this.handleAdd = this.handleAdd.bind(this);
    this.toggle = this.toggle.bind(this);
@@ -90,6 +91,18 @@ class InstagramForm extends Component {
     this.setState((prevState) => {
       let rules = prevState.rules;
       rules[index].data = value;
+      return {
+        rules: rules
+      };
+    });
+  }
+
+  handleRemove(event) {
+    const target = event.target;
+    const index = target.id;
+    this.setState((prevState) => {
+      let rules = prevState.rules;
+      rules.splice(index, 1);
       return {
         rules: rules
       };
@@ -159,7 +172,7 @@ class InstagramForm extends Component {
                     onChange={this.handleRuleChange}/>
                 </Col>
                 <Col sm={2}>
-                  <Button color="danger">Remove</Button>
+                  <Button color="danger" onClick={this.handleRemove} id={index}>Remove</Button>
                 </Col>
               </FormGroup>
             </Card>
