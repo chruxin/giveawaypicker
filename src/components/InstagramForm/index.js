@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input} from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Col, Card,
+  ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import fetchJsonp from 'fetch-jsonp';
 
 class InstagramResult extends Component {
@@ -61,11 +62,15 @@ class InstagramForm extends Component {
      users: [],
      error: '',
      result: false,
-     message: ''
+     message: '',
+     dropdownOpen: false,
+     rules: []
    };
 
    this.handleChange = this.handleChange.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
+   this.handleAdd = this.handleAdd.bind(this);
+   this.toggle = this.toggle.bind(this);
   }
 
   handleChange(event) {
@@ -106,8 +111,46 @@ class InstagramForm extends Component {
     }
   }
 
+  handleAdd (event) {
+    const name = event.target.name;
+    this.setState((prevState) => {
+      const newRules = prevState.rules;
+      newRules.push(name);
+      return {
+        rules: newRules
+      }});
+  }
+
+  toggle() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
   render() {
-    // const title
+    console.log(typeof this.state.rules);
+    console.log(typeof []);
+    const rules = this.state.rules.map((rule, index) => {
+      if (rule === "must_like_post") {
+          return (
+            <Card block outline color="secondary">
+              <FormGroup row key={index}>
+                <Label for="postURL" sm={2}>&bull; Must like post</Label>
+                <Col sm={8}>
+                  <Input type="url"
+                    name="postURL"
+                    id="postURL"
+                    placeholder="post link, example: https://www.instagram.com/p/AAaAaA0AAaa/?taken-by=someone"
+                    onChange={this.handleChange}/>
+                </Col>
+                <Col sm={2}>
+                  <Button color="danger">Remove</Button>
+                </Col>
+              </FormGroup>
+            </Card>
+          );
+      } //TODO
+    });
 
     return (
       <div>
@@ -118,17 +161,19 @@ class InstagramForm extends Component {
           id="numberOfWinners"
           onChange={this.handleChange}/>
         <h2>Rules</h2>
+        <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+          <DropdownToggle caret>
+            Add Rule
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem onClick={this.handleAdd} name="must_like_post">Must like post</DropdownItem>
+            <DropdownItem>Another Action</DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
         <Form>
-          <FormGroup>
-            <Label for="postURL">Must like post</Label>
-            <Input type="url"
-              name="postURL"
-              id="postURL"
-              placeholder="post link, example: https://www.instagram.com/p/AAaAaA0AAaa/?taken-by=someone"
-              onChange={this.handleChange}/>
-          </FormGroup>
-          <Button onClick={this.handleSubmit}>Submit</Button>
+          {rules}
         </Form>
+        <Button onClick={this.handleSubmit}>Submit</Button>
         <h2>{ this.state.message }</h2>
         <InstagramResult
           users={this.state.users}
