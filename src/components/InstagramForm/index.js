@@ -68,6 +68,7 @@ class InstagramForm extends Component {
    };
 
    this.handleChange = this.handleChange.bind(this);
+   this.handleRuleChange = this.handleRuleChange.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
    this.handleAdd = this.handleAdd.bind(this);
    this.toggle = this.toggle.bind(this);
@@ -75,19 +76,31 @@ class InstagramForm extends Component {
 
   handleChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
+    const value = target.value;
     this.setState({
       [name]: value
     });
-    // this.setState({postURL: event.target.value});
+  }
+
+  handleRuleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const index = target.id;
+    this.setState((prevState) => {
+      let rules = prevState.rules;
+      rules[index].data = value;
+      return {
+        rules: rules
+      };
+    });
   }
 
   async handleSubmit(event) {
     this.setState({message: 'Generating result...'});
     // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
     const token = localStorage.getItem('access_token');
-    const postURL = this.state.postURL;
+    const postURL = this.state.rules[0].data;
     const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
     try {
@@ -114,8 +127,11 @@ class InstagramForm extends Component {
   handleAdd (event) {
     const name = event.target.name;
     this.setState((prevState) => {
-      const newRules = prevState.rules;
-      newRules.push(name);
+      let newRules = prevState.rules;
+      newRules.push({
+        type: name,
+        data: ''
+      });
       return {
         rules: newRules
       }});
@@ -128,20 +144,19 @@ class InstagramForm extends Component {
   }
 
   render() {
-    console.log(typeof this.state.rules);
-    console.log(typeof []);
     const rules = this.state.rules.map((rule, index) => {
-      if (rule === "must_like_post") {
+      const type = rule.type;
+      if (type === "must_like_post") {
           return (
-            <Card block outline color="secondary">
-              <FormGroup row key={index}>
+            <Card block outline color="secondary" key={index}>
+              <FormGroup row>
                 <Label for="postURL" sm={2}>&bull; Must like post</Label>
                 <Col sm={8}>
                   <Input type="url"
                     name="postURL"
-                    id="postURL"
+                    id={index}
                     placeholder="post link, example: https://www.instagram.com/p/AAaAaA0AAaa/?taken-by=someone"
-                    onChange={this.handleChange}/>
+                    onChange={this.handleRuleChange}/>
                 </Col>
                 <Col sm={2}>
                   <Button color="danger">Remove</Button>
