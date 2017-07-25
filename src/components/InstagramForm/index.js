@@ -10,6 +10,7 @@ class InstagramResult extends Component {
   }
 
   selectRandomWinners (users, numberOfWinners) {
+    // TODO: implement this function
     return users;
   }
 
@@ -18,10 +19,6 @@ class InstagramResult extends Component {
     const error = this.props.error;
     const result = this.props.result;
     const numberOfWinners = this.props.numberOfWinners;
-    console.log('users: ' + JSON.stringify(users));
-    console.log('error: ' + error);
-    console.log('result: ' + result);
-    console.log('numberOfWinners: ' + numberOfWinners);
     let message;
     if (error !== '') {
       message = <h2>Error: { error }</h2>;
@@ -31,7 +28,6 @@ class InstagramResult extends Component {
           <h2>Generating result...</h2>
         </div>
       );
-      // TODO: make sure users is not undefined
       const winners = this.selectRandomWinners (users, numberOfWinners);
       const winnerLinks = winners.map((winner) =>
       <a href={'https://www.instagram.com/' + winner.username} key={winner.username}>
@@ -57,7 +53,6 @@ class InstagramForm extends Component {
   constructor(props) {
    super(props);
    this.state = {
-     postURL: '',
      numberOfWinners: '',
      users: [],
      error: '',
@@ -72,6 +67,7 @@ class InstagramForm extends Component {
    this.handleRemove = this.handleRemove.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
    this.handleAdd = this.handleAdd.bind(this);
+   this.validateForm = this.validateForm.bind(this);
    this.toggle = this.toggle.bind(this);
   }
 
@@ -109,31 +105,51 @@ class InstagramForm extends Component {
     });
   }
 
+  validateForm() {
+    let error = '';
+    if (parseInt(this.state.numberOfWinners) <= 0) {
+      error = 'Please input a positive number of winners.';
+    } else if (parseFloat(this.state.numberOfWinners) !== parseInt(this.state.numberOfWinners)) {
+      error = 'Please input an integer number of winners.';
+    } else {
+      // number of winners is a positive integer
+      // TODO: validate input to rules
+    }
+  }
+
   async handleSubmit(event) {
     this.setState({message: 'Generating result...'});
-    // TODO: check browser support for localStorage `if (typeof(Storage) !== "undefined")`
-    const token = localStorage.getItem('access_token');
-    const postURL = this.state.rules[0].data;
-    const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-    try {
-      let response = await fetchJsonp(requestURLForMediaId)
-      this.setState({message: ''});
-      let json = await response.json();
-      const mediaId = json.media_id;
-      const requestURLForLikes = 'https://api.instagram.com/v1/media/'
-        + mediaId + '/likes?access_token=' + token;
-      let response2 = await fetchJsonp(requestURLForLikes)
-      let json2 = await response2.json();
-      this.setState({
-        users: json2.data,
-        result: true
-      });
-    } catch (err) {
+    // validate form Input
+    if (parseInt(this.state.numberOfWinners) <= 0) {
+      this.setState({error: 'Please input a positive number of winners.'});
+    } else if (parseFloat(this.state.numberOfWinners) !== parseInt(this.state.numberOfWinners)) {
+      this.setState({error: 'Please input an integer number of winners.'});
+    } else {
+      //
+      const token = localStorage.getItem('access_token');
+      const postURL = this.state.rules[0].data; //TODO: change this hard-coded index
+      const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
+
+      try {
+        let response = await fetchJsonp(requestURLForMediaId)
+        this.setState({message: ''});
+        let json = await response.json();
+        const mediaId = json.media_id;
+        const requestURLForLikes = 'https://api.instagram.com/v1/media/'
+          + mediaId + '/likes?access_token=' + token;
+        let response2 = await fetchJsonp(requestURLForLikes)
+        let json2 = await response2.json();
         this.setState({
-          message: '',
-          error: err.message
+          users: json2.data,
+          result: true
         });
+      } catch (err) {
+          this.setState({
+            message: '',
+            error: err.message
+          });
+      }
     }
   }
 

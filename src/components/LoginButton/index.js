@@ -36,7 +36,7 @@ class LoginButton extends Component {
     const authenLink = 'https://api.instagram.com/oauth/authorize/?client_id='
                         + clientID + '&redirect_uri=' + redirectURL
                         + '&response_type=token';
-    window.location.assign(authenLink); //TODO: use react-router instead
+    window.location.assign(authenLink);
   }
 
   handleFacebookLogin(e) {
