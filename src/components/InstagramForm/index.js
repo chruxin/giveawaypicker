@@ -120,36 +120,28 @@ class InstagramForm extends Component {
   async handleSubmit(event) {
     this.setState({message: 'Generating result...'});
 
-    // validate form Input
-    if (parseInt(this.state.numberOfWinners) <= 0) {
-      this.setState({error: 'Please input a positive number of winners.'});
-    } else if (parseFloat(this.state.numberOfWinners) !== parseInt(this.state.numberOfWinners)) {
-      this.setState({error: 'Please input an integer number of winners.'});
-    } else {
-      //
-      const token = localStorage.getItem('access_token');
-      const postURL = this.state.rules[0].data; //TODO: change this hard-coded index
-      const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
+    const token = localStorage.getItem('access_token');
+    const postURL = this.state.rules[0].data; //TODO: change this hard-coded index
+    const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
 
-      try {
-        let response = await fetchJsonp(requestURLForMediaId)
-        this.setState({message: ''});
-        let json = await response.json();
-        const mediaId = json.media_id;
-        const requestURLForLikes = 'https://api.instagram.com/v1/media/'
-          + mediaId + '/likes?access_token=' + token;
-        let response2 = await fetchJsonp(requestURLForLikes)
-        let json2 = await response2.json();
+    try {
+      let response = await fetchJsonp(requestURLForMediaId);
+      this.setState({message: ''});
+      let json = await response.json();
+      const mediaId = json.media_id;
+      const requestURLForLikes = 'https://api.instagram.com/v1/media/'
+        + mediaId + '/likes?access_token=' + token;
+      let response2 = await fetchJsonp(requestURLForLikes);
+      let json2 = await response2.json();
+      this.setState({
+        users: json2.data,
+        result: true
+      });
+    } catch (err) {
         this.setState({
-          users: json2.data,
-          result: true
+          message: '',
+          error: err.message
         });
-      } catch (err) {
-          this.setState({
-            message: '',
-            error: err.message
-          });
-      }
     }
   }
 
