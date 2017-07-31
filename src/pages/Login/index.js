@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 class Login extends Component {
   render () {
     document.title = "Log In";
-    
+
     let error = false;
     let message;
     console.log('this.props' + JSON.stringify(this.props));
@@ -35,8 +35,6 @@ class Login extends Component {
         <div className="text-center">
           {message}
           <LoginButton page='instagram'/>
-          <br></br>
-          <LoginButton page='facebook'/>
         </div>
         <Footer />
       </div>

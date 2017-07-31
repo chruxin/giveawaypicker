@@ -30,9 +30,6 @@ class NavBar extends Component {
                 <NavItem>
                   <NavLink to={baseUrl + "/instagram"} activeClassName="active" tag={RRNavLink}>INSTAGRAM</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink to={baseUrl + "/facebook"} activeClassName="active" tag={RRNavLink}>FACEBOOK</NavLink>
-                </NavItem>
               </Nav>
             </Collapse>
           </Navbar>
