@@ -1,70 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Col, Card,
   ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import fetchJsonp from 'fetch-jsonp';
 
-class InstagramResult extends Component {
-  constructor (props) {
-    super(props);
-    this.selectRandomWinners = this.selectRandomWinners.bind(this);
-  }
-
-  selectRandomWinners (users, numberOfWinners) {
-    console.log('users: ' + JSON.stringify(users));
-    let winners = [];
-    for (let i = 0; i < numberOfWinners; i++) {
-      let randomIndex = Math.floor(Math.random() * users.length);
-      winners.push(users[randomIndex]);
-    }
-    return winners;
-  }
-
-  render () {
-    const users = this.props.users;
-    const error = this.props.error;
-    const result = this.props.result;
-    const numberOfWinners = this.props.numberOfWinners;
-    let giveawayResult;
-    if (error !== '') {
-      giveawayResult = <h2>Error: { error }</h2>;
-    } else if (result === true) {
-      giveawayResult = (
-        <div>
-          <h2>Generating result...</h2>
-        </div>
-      );
-      const winners = this.selectRandomWinners (users, numberOfWinners);
-      const winnerLinks = winners.map((winner, index) =>
-      <p key={index}>
-        <a href={'https://www.instagram.com/' + winner.username}>
-          @{winner.username}
-        </a>
-      </p>
-    );
-      giveawayResult = (
-        <div>
-          <h2>Winner(s):</h2>
-          { winnerLinks }
-        </div>
-      );
-    }
-    return (
-      <div>
-        { giveawayResult }
-      </div>
-    );
-  }
-}
-
-// Taken from https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
-function validURL(str) {
-  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-  if(!regex .test(str)) {
-    return false;
-  } else {
-    return true;
-  }
-}
+// Import conponents
+import InstagramResult from '../InstagramResult';
+// Import helpers
+import {validURL, validateForm, handleRule} from '../../utils/Instagram/helpers.js';
 
 class InstagramForm extends Component {
   constructor(props) {
@@ -89,8 +30,8 @@ class InstagramForm extends Component {
    this.handleRemove = this.handleRemove.bind(this);
    this.handleSubmit = this.handleSubmit.bind(this);
    this.handleAdd = this.handleAdd.bind(this);
-   this.validateForm = this.validateForm.bind(this);
    this.toggle = this.toggle.bind(this);
+   this.renderRules = this.renderRules.bind(this);
   }
 
   handleChange(event) {
@@ -127,30 +68,8 @@ class InstagramForm extends Component {
     });
   }
 
-  validateForm() {
-    let error = '';
-    if (parseInt(this.state.numberOfWinners, 10) <= 0) {
-      error = 'Please input a positive number of winners.';
-    } else if (parseFloat(this.state.numberOfWinners, 10)
-    !== parseInt(this.state.numberOfWinners, 10)) {
-      error = 'Please input an integer number of winners.';
-    } else {
-      // number of winners is a positive integer
-      for (let rule of this.state.rules) {
-        if (rule.type === 'must_like_post') {
-          if (validURL(rule.data) === false) {
-            error = 'Invalid URL.';
-          }
-        } else {
-          error = 'Invalid type.';
-        }
-      }
-    }
-    return error;
-  }
-
   async handleSubmit(event) {
-    let error = this.validateForm();
+    let error = validateForm(this.state.numberOfWinners, this.state.rules);
     if (error !== '') {
       this.setState({
         result: false,
@@ -164,32 +83,7 @@ class InstagramForm extends Component {
 
       const token = localStorage.getItem('access_token');
       let resultPromises = this.state.rules.map((rule) => {
-        return new Promise((fulfill, reject) => {
-          if (rule.type === 'must_like_post') {
-            const postURL = rule.data;
-            const requestURLForMediaId = 'https://api.instagram.com/oembed/?url=' + postURL;
-            // first request to get media_id
-            fetchJsonp(requestURLForMediaId).then((response) => {
-              return response.json();
-            }).then((json) => {
-              const mediaId = json.media_id;
-              const requestURLForLikes = 'https://api.instagram.com/v1/media/'
-              + mediaId + '/likes?access_token=' + token;
-              // second request to get users who liked the post
-              return fetchJsonp(requestURLForLikes).then((response) => {
-                return response.json();
-              }).then((json) => {
-                // fulfill the promise with an array of users
-                // who liked the post
-                fulfill(json.data);
-              });
-            }).catch((error) => {
-              reject({error: error});
-            });
-          } else {
-            reject({error: 'Invalid rule.'});
-          }
-        });
+        return handleRule(rule, token);
       });
 
       Promise.all(resultPromises).then((resultArray) => {
@@ -229,9 +123,9 @@ class InstagramForm extends Component {
     });
   }
 
-  render() {
-    const rules = this.state.rules.map((rule, index) => {
-      const type = rule.type;
+  renderRules() {
+    let rules = this.state.rules.map((rule, index) => {
+      let type = rule.type;
       if (type === "must_like_post") {
           return (
             <Card block outline color="secondary" key={index}>
@@ -254,6 +148,11 @@ class InstagramForm extends Component {
         return <p>Invalid type.</p>;
       }
     });
+    return rules;
+  }
+
+  render() {
+    const rules = this.renderRules();
 
     return (
       <div>
