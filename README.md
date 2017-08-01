@@ -1,7 +1,5 @@
 # Giveaway-Picker ![travis-ci](https://travis-ci.org/42mandychen/giveawaypicker.svg?branch=master)
-Randomly pick users for giveaways on Instagram and Facebook.
-
-***The project is currently in progress.***
+Randomly pick users for giveaways on Instagram.
 
 ## React
 
